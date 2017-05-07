@@ -161,6 +161,13 @@ static const DLLPatchStrc borderPanelClickDetectionPatches[] = {
     { D2DLL_INVALID }
 };
 
+// For the uninitiated and lazy, patch d2gfx to allow multiboxing.
+static const DLLPatchStrc multiBoxPatches[] = {
+    { D2DLL_D2GFX, 0x85BF, 0xEB, FALSE, 1 },
+
+    { D2DLL_INVALID }
+};
+
 
 static const DLLPatchStrc levelButtonClickDetectionPatches[] = {
     // Unknown
