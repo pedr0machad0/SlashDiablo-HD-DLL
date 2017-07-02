@@ -37,11 +37,6 @@ void __stdcall HD::D2GFX_GetModeParams(int mode, DWORD* width, DWORD* height) {
         break;
 
     case 3:
-        *width = 1344;
-        *height = 700;
-        break;
-
-    case 4:
         *width = 1068;
         *height = 600;
         break;
@@ -219,24 +214,16 @@ int __stdcall SetupGlideRenderResolution() {
         glideVideoMode = 8;
         break;
 
+    case 3:
+        glideVideoMode = 0x0FF;
+        break;
+
     default:
         glideVideoMode = (glideVideoMode - 2) + 8;
         break;
     }
 
     return glideVideoMode;
-}
-
-void __stdcall HD::SetupGlideWindowSize() {
-    __asm PUSHAD
-
-    int newGlideVideoMode;
-    __asm MOV newGlideVideoMode, EAX
-
-    int resolutionMode = (newGlideVideoMode == 7) ? 0 : ((newGlideVideoMode - 8) + 2);
-    HD::D2GFX_GetModeParams(resolutionMode, *GLIDE3X_GameWindowSizeX, *GLIDE3X_GameWindowSizeY);
-
-    __asm POPAD
 }
 
 // Repositions panels in the correct location, independent of resolution.

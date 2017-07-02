@@ -57,7 +57,8 @@ VAR(CellFile*, D2MRFancyPanelBar)
 VAR(CellFile*, D2MRFancyPanelLeft)
 VAR(CellFile*, D2MRFancyPanelRight)
 VAR(CellFile*, D2MRFancyVerticalBar)
-VAR(CellFile*, OtherText)
+VAR(CellFile*, Blank)
+VAR(CellFile*, Resolution1068x600Text)
 
 // end of file ---------------------------------------------------------------
 #undef _D2VARS_H

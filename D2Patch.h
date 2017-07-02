@@ -206,15 +206,6 @@ static const DLLPatchStrc borderPanelClickDetectionPatches[] = {
     { D2DLL_INVALID }
 };
 
-// Replace for HD, Resize Glide Game Window, but not used if using custom glide3x.dll
-static const DLLPatchStrc glide3xPatches[] = {
-    { D2DLL_GLIDE3X, 0xCA97, PATCH_NOPBLOCK, FALSE, 0xCBA7 - 0xCA97 },
-    { D2DLL_GLIDE3X, 0xCA97, PATCH_CALL, FALSE, 0 },
-    { D2DLL_GLIDE3X, 0xCA97 + 1, (int)HD::SetupGlideWindowSize, TRUE, 0 },
-    
-    { D2DLL_INVALID }
-};
-
 static const DLLPatchStrc controlPanel800Patches[] = {
     // Unknown
     { D2DLL_D2CLIENT, 0x506AF + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },

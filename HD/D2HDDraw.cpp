@@ -461,7 +461,8 @@ void HD::UnloadCellFiles() {
     UnloadCellFile(&D2MRFancyPanelLeft);
     UnloadCellFile(&D2MRFancyPanelRight);
     UnloadCellFile(&D2MRFancyVerticalBar);
-    UnloadCellFile(&OtherText);
+    UnloadCellFile(&Blank);
+    UnloadCellFile(&Resolution1068x600Text);
 
     __asm mov ecx, 12
 }
@@ -474,15 +475,27 @@ void HD::DetermineText() {
         PUSH ECX
         PUSH EAX
     }
-    if (OtherText == nullptr) {
-        OtherText = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\Blank", 0);
+
+    if (Blank == nullptr) {
+        Blank = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\Blank", 0);
     }
 
-    if (*D2CLIENT_CurrentRegistryResolutionMode >= 2 && assetValue == 0x154) {
+    if (Resolution1068x600Text == nullptr) {
+        Resolution1068x600Text = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\1068x600", 0);
+    }
+
+    if (*D2CLIENT_CurrentRegistryResolutionMode == 3 && assetValue == 0x154) {
         __asm {
             POP EAX
             POP ECX
-            MOV ECX, OtherText
+            MOV ECX, Resolution1068x600Text
+        }
+    }
+    else if (*D2CLIENT_CurrentRegistryResolutionMode >= 4 && assetValue == 0x154) {
+        __asm {
+            POP EAX
+            POP ECX
+            MOV ECX, Blank
         }
     } else {
         __asm {
