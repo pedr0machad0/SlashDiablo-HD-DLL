@@ -69,6 +69,7 @@ D2VAR(D2CLIENT, PanelBorderImage, CellFile*, 0x11A77C);
 D2VAR(D2CLIENT, PanelOpenMode, int, 0x11C414);
 D2VAR(D2CLIENT, MaxRegistryResolutionMode, int, 0xEABD8);
 D2VAR(D2CLIENT, CurrentRegistryResolutionMode, int, 0xEABDC);
+D2VAR(D2CLIENT, SelectedMenuOption, int, 0x11C058);
 
 // Do not call this function directly unless you insert arg0 into EDI
 D2FUNC(D2CLIENT, LoadUIImage, CellFile*, __fastcall, (const char* szImage), 0xBF6C0);
@@ -108,7 +109,8 @@ D2VAR(D2GDI, ForegroundRenderWidth, DWORD, 0xCA9C);
 *   D2GFX.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2VAR(D2GFX, GfxMode, int, 0x11258)
+D2VAR(D2GFX, GfxMode, int, 0x11258);
+D2VAR(D2GFX, ResolutionMode, int, 0x11260);
 
 D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), 0xB320);
 D2FUNC(D2GFX, DrawImage, void, __stdcall, (CellContext* pCellContext, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);

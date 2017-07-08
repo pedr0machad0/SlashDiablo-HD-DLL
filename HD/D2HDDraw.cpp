@@ -472,8 +472,7 @@ void HD::DetermineText() {
 
     __asm {
         MOV assetValue, ESI
-        PUSH ECX
-        PUSH EAX
+        PUSHAD
     }
 
     if (Blank == nullptr) {
@@ -486,21 +485,18 @@ void HD::DetermineText() {
 
     if (*D2CLIENT_CurrentRegistryResolutionMode == 3 && assetValue == 0x154) {
         __asm {
-            POP EAX
-            POP ECX
+            POPAD
             MOV ECX, Resolution1068x600Text
         }
     }
     else if (*D2CLIENT_CurrentRegistryResolutionMode >= 4 && assetValue == 0x154) {
         __asm {
-            POP EAX
-            POP ECX
+            POPAD
             MOV ECX, Blank
         }
     } else {
         __asm {
-            POP EAX
-            POP ECX
+            POPAD
             MOV ECX, [EAX + ECX * 4 + 0x00000540]
         }
     }
