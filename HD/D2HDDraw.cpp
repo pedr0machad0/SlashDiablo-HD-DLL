@@ -8,6 +8,7 @@ void RedrawUILeftPanelBorders_D2MR();
 void RedrawUILeftPanelBorders_Original();
 void RedrawUIRightPanelBorders_D2MR();
 void RedrawUIRightPanelBorders_Original();
+void UnloadCellFiles();
 
 // Redraws the left side panel borders in the correct places, independent of resolution.
 void HD::RedrawUILeftPanelBorders() {
@@ -447,7 +448,7 @@ void UnloadCellFile(CellFile** ppCellFile) {
     }
 }
 
-void HD::UnloadCellFiles() {
+void UnloadCellFiles() {
     UnloadCellFile(&D2MRStoneBack);
     UnloadCellFile(&D2MRFancyBorderBottom);
     UnloadCellFile(&D2MRFancyBorderCorner);
@@ -463,8 +464,15 @@ void HD::UnloadCellFiles() {
     UnloadCellFile(&D2MRFancyVerticalBar);
     UnloadCellFile(&Blank);
     UnloadCellFile(&Resolution1068x600Text);
+}
 
-    __asm mov ecx, 12
+void __declspec(naked) HD::STUB_UnloadCellFiles() {
+    __asm {
+        CALL [UnloadCellFiles]
+        MOV EAX, [D2CLIENT_PanelBorderImage]
+        MOV ESI, [EAX]
+        RET
+    }
 }
 
 void HD::DetermineText() {
