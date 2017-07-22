@@ -41,6 +41,11 @@ void __stdcall HD::D2GFX_GetModeParams(int mode, DWORD* width, DWORD* height) {
         *height = 600;
         break;
 
+    case 4:
+        *width = CustomWidth;
+        *height = CustomHeight;
+        break;
+
     default:
         *width = 640;
         *height = 480;
@@ -66,14 +71,19 @@ void __declspec(naked) HD::ResizeRenderResolution_Interception() {
     }
 }
 
-void HD::ResizeForgroundRenderWidth_Interception() {
-    int mode;
-    DWORD temp;
-    __asm MOV mode, ESI
-
-    HD::D2GFX_GetModeParams(mode, D2GDI_ForegroundRenderWidth, &temp);
-
-    __asm MOV EAX, 0x1
+void __declspec(naked) HD::ResizeForgroundRenderWidth_Interception() {
+    __asm {
+        PUSHAD
+        SUB ESP, 4
+        PUSH ESP
+        PUSH D2GDI_ForegroundRenderWidth
+        PUSH ESI
+        CALL [HD::D2GFX_GetModeParams]
+        ADD ESP, 4
+        POPAD
+        MOV EAX, 1
+        RET
+    }
 }
 
 void HD::ResizeGameLogicResolution_Interception() {
